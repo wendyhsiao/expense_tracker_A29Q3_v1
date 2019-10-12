@@ -39,6 +39,7 @@ app.use((req, res, next) => {
 // 使用路由器
 app.use('/', require('./routes/home'))
 app.use('/users', require('./routes/user'))
+app.use('/records', require('./routes/record'))
 
 // 設定 express port 3000
 app.listen(port, () => {
