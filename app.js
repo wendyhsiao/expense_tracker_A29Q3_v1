@@ -23,8 +23,8 @@ app.use(methodOverride('_method'))
 
 app.use(session({
   secret: 'your secret key',
-  resave: 'false',
-  saveUninitialized: 'false',
+  resave: false,
+  saveUninitialized: false,
 }))
 // 使用 Passport - 要在「使用路由器」前面
 app.use(passport.initialize())
