@@ -1,0 +1,48 @@
+<div class="container col-6 mt-5">
+  <div class="row">
+    <div class="col-12 mb-5" style="text-align:center;">
+      <h2 class="col-12">請輸入你的支出</h2>
+    </div>
+    <form action="/records" method="POST" class="col-12">
+      <div class="col-12">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">名稱 *</span>
+          </div>
+          <input type="text" class="form-control" name="name" placeholder="輸入支出名稱">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">日期 *</span>
+          </div>
+          <input type="date" class="form-control" name="date" value="{{today}}" placeholder="Username">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">類別 *</span>
+          </div>
+          {{!-- <input type="text" class="form-control" placeholder="Username"> --}}
+          <select class="custom-select" name="category">
+            <option selected>類別</option>
+            <option value="houseware">家居物業</option>
+            <option value="traffic">交通出行</option>
+            <option value="entertainment">休閒娛樂</option>
+            <option value="food">餐飲食品</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">金額 *</span>
+          </div>
+          <input type="number" class="form-control" name="amount" placeholder="輸入金額">
+        </div>
+
+        <button type="submit" class="btn btn-primary mr-auto ">新增支出</button>
+      </div>
+    </form>
+  </div>
+</div>

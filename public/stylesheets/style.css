@@ -1,0 +1,31 @@
+* {
+  font-family: 'Acme', 'Noto Sans TC', sans-serif;
+}
+
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.col-left {
+  float: left;
+}
+
+.col-right {
+  float: right;
+}
+
+.fas {
+  color: #339af0;
+}
+
+.totalAmount {
+  font-size: 80px;
+  color: #f0b633;
+}
+
+/* 奇數行灰背景 */
+li:nth-child(odd) {
+  background-color: #f8f9fa;
+}

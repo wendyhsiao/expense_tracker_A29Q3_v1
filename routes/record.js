@@ -14,7 +14,7 @@ router.get('/', authenticated, (req, res) => {
 
 // 新增支出頁面
 router.get('/new', authenticated, (req, res) => {
-  const objDate = new Date(now)
+  const objDate = new Date()
   const mm = objDate.getMonth() + 1
   const dd = objDate.getDate()
   const today = [

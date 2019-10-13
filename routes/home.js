@@ -17,6 +17,19 @@ router.get('/', authenticated, (req, res) => {
       return Record.findAll({ where: { UserId: req.user.id } })
     })
     .then((records) => {
+
+      for (let record in records) {
+        const date = records[record].dataValues.date
+        // const yyyy = date.slice(0, 4)
+        // const mm = date.slice(6, 7)
+        // const dd = date.slice(9, 10)
+        records[record].dataValues.dateNew = date.toString()
+        // records[record]._previousDataValues.dateNew = date.toString()
+        // [yyyy, (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('-')
+        console.log('record', records[record].dataValues.date)
+        console.log('record', records[record].dataValues.dateNew)
+      }
+      console.log('records', records)
       return res.render('index', { records: records })
     })
     .catch((error) => {
