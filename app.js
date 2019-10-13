@@ -13,7 +13,7 @@ const User = db.User
 
 const session = require('express-session')
 const passport = require('passport')
-const moment = require('moment')
+const flash = require('connect-flash')
 
 app.use(express.static('public'))
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -31,8 +31,12 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 require('./config/passport')(passport)
+app.use(flash())
 app.use((req, res, next) => {
   res.locals.user = req.user
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
   next()
 })
 
