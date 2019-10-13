@@ -15,6 +15,7 @@ const session = require('express-session')
 const passport = require('passport')
 const moment = require('moment')
 
+app.use(express.static('public'))
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
