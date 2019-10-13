@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const Handlebars = require('handlebars')
 // 載入 model
 const db = require('../models')
 const User = db.User
@@ -37,7 +38,14 @@ router.post('/', authenticated, (req, res) => {
     .catch((error) => { return res.status(422).json(error) })
 })
 
+
 // 修改支出頁面
+Handlebars.registerHelper('ifselect', (arg1, arg2, options) => {
+  console.log('arg1', arg1)
+  console.log('arg2', arg2)
+  return arg1 == arg2 ? options.fn(this) : options.inverse(this)
+})
+
 router.get('/:id/edit', authenticated, (req, res) => {
   User.findByPk(req.user.id)
     .then((user) => {
@@ -47,7 +55,12 @@ router.get('/:id/edit', authenticated, (req, res) => {
       })
     })
     .then((record) => {
-      return res.render('edit')
+      let date = record.date
+      let yyyy = date.getFullYear()
+      let mm = date.getMonth() + 1
+      let dd = date.getDate()
+      var date2 = [yyyy, (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('-')
+      return res.render('edit', { record: record, date2: date2 })
     })
 
 })
@@ -57,6 +70,8 @@ router.put('/:id', authenticated, (req, res) => {
     where: { Id: req.params.id, UserId: req.user.id }
   })
     .then((record) => {
+      console.log('record', record)
+      console.log('record.name', record.name)
       record.name = req.body.name
       record.category = req.body.category
       record.date = req.body.date

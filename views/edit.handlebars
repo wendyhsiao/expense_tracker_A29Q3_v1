@@ -3,13 +3,13 @@
     <div class="col-12 mb-5" style="text-align:center;">
       <h2 class="col-12">請修改你的支出</h2>
     </div>
-    <form action="/records/{{item.id}}?_method=PUT" method="POST" class="col-12">
+    <form action="/records/{{record.id}}?_method=PUT" method="POST" class="col-12">
       <div class="col-12">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">名稱 *</span>
           </div>
-          <input type="text" class="form-control" name="name" value="{{item.name}}" placeholder="輸入支出名稱">
+          <input type="text" class="form-control" name="name" value="{{record.name}}" placeholder="輸入支出名稱">
 
         </div>
 
@@ -25,12 +25,16 @@
             <span class="input-group-text" id="basic-addon1">類別 *</span>
           </div>
           <select class="custom-select" name="category">
-            <option {{#ifselect item.category '類別'}}selected="selected" {{/ifselect}}>類別</option>
-            <option {{#ifselect item.category '家居物業'}}selected="selected" {{/ifselect}} value="家居物業">家居物業</option>
-            <option {{#ifselect item.category '交通出行'}}selected="selected" {{/ifselect}} value="交通出行">交通出行</option>
-            <option {{#ifselect item.category '休閒娛樂'}}selected="selected" {{/ifselect}} value="休閒娛樂">休閒娛樂</option>
-            <option {{#ifselect item.category '餐飲食品'}}selected="selected" {{/ifselect}} value="餐飲食品">餐飲食品</option>
-            <option {{#ifselect item.category '其他'}}selected="selected" {{/ifselect}} value="其他">其他</option>
+            <option {{#ifselect record.category 'category'}}selected="selected" {{/ifselect}}>類別</option>
+            <option {{#ifselect record.category 'houseware'}}selected="selected" {{/ifselect}} value="houseware">家居物業
+            </option>
+            <option {{#ifselect record.category 'traffic'}}selected="selected" {{/ifselect}} value="traffic">交通出行
+            </option>
+            <option {{#ifselect record.category 'entertainment'}}selected="selected" {{/ifselect}}
+              value="entertainment">休閒娛樂
+            </option>
+            <option {{#ifselect record.category 'food'}}selected="selected" {{/ifselect}} value="food">餐飲食品</option>
+            <option {{#ifselect record.category 'other'}}selected="selected" {{/ifselect}} value="other">其他</option>
           </select>
         </div>
 
@@ -38,7 +42,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">金額 *</span>
           </div>
-          <input type="number" class="form-control" name="amount" value="{{item.amount}}" placeholder="輸入金額">
+          <input type="number" class="form-control" name="amount" value="{{record.amount}}" placeholder="輸入金額">
         </div>
         <button type="submit" class="btn btn-primary mr-auto ">送出</button>
 
