@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const Handlebars = require('handlebars')
 
 // 載入 model
 const db = require('../models')
@@ -8,6 +9,16 @@ const User = db.User
 const Record = db.Record
 // 載入 auth middleware
 const { authenticated } = require('../config/auth')
+
+Handlebars.registerHelper('select', function (selected, options) {
+  console.log('options.fn(this)', options.fn(this))
+  return options
+    .fn(this)
+    .replace(
+      'value="/?category=' + selected + '"',
+      'value="/?category=' + selected + '" selected="selected"'
+    )
+})
 
 const categoryIcon = {
   houseware: `<i class="fas fa-home fa-2x" id="fa-home"></i>`,
@@ -21,8 +32,13 @@ router.get('/', authenticated, (req, res) => {
   User.findByPk(req.user.id)
     .then((user) => {
       if (!user) throw new Error('user not found')
+      let filterObject = { where: { UserId: req.user.id } }
+      if (req.query.category) {
+        filterObject.where.category = req.query.category
+      }
+      console.log('filterObject', filterObject.where)
 
-      return Record.findAll({ where: { UserId: req.user.id } })
+      return Record.findAll(filterObject)
     })
     .then((records) => {
       let totalAmount = 0
@@ -37,7 +53,7 @@ router.get('/', authenticated, (req, res) => {
         var date2 = [yyyy, (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('-')
         records[record].dateNew = date2
       }
-      return res.render('index', { records: records, totalAmount })
+      return res.render('index', { records: records, totalAmount, categorySelect: req.query.category })
     })
     .catch((error) => {
       return res.status(422).json(error)
